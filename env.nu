@@ -6,21 +6,14 @@ use ~/.config/nushell/prompt.nu *
 
 # Use nushell functions to define your right and left prompt
 $env.PROMPT_COMMAND = {|| create_left_prompt }
-# FIXME: This default is not implemented in rust code as of 2023-09-08.
 $env.PROMPT_COMMAND_RIGHT = {|| create_right_prompt }
 
-# The prompt indicators are environmental variables that represent
-# the state of the prompt
-$env.PROMPT_INDICATOR = {|| "" } # $env.PROMPT_INDICATOR = {|| "> " }
+# Variables that represent the state of the prompt
+$env.PROMPT_INDICATOR = {|| "" }
 $env.PROMPT_INDICATOR_VI_INSERT = {|| ": " }
 $env.PROMPT_INDICATOR_VI_NORMAL = {|| "> " }
-$env.PROMPT_MULTILINE_INDICATOR = {|| "::: " }
+$env.PROMPT_MULTILINE_INDICATOR = {|| create_continuation_prompt }
 
-# If you want previously entered commands to have a different prompt from the usual one,
-# you can uncomment one or more of the following lines.
-# This can be useful if you have a 2-line prompt and it's taking up a lot of space
-# because every command entered takes up 2 lines instead of 1. You can then uncomment
-# the line below so that previously entered commands show with a single `🚀`.
 $env.TRANSIENT_PROMPT_COMMAND = {|| $"⊻ " }
 # $env.TRANSIENT_PROMPT_INDICATOR = {|| "" }
 # $env.TRANSIENT_PROMPT_INDICATOR_VI_INSERT = {|| "" }
@@ -55,9 +48,6 @@ $env.NU_PLUGIN_DIRS = [
     ($nu.default-config-dir | path join 'plugins') # add <nushell-config-dir>/plugins
 ]
 
-# To add entries to PATH (on Windows you might use Path), you can use the following pattern:
-# $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
-
 # Personal env vars
 $env.PIPENV_VERBOSITY = -1
 $env.MAKEFLAGS = "-j $(($(nproc) + 1))"
@@ -72,6 +62,7 @@ $env.LESS_TERMCAP_so = (ansi --escape "01;44;36m")  # begin standout-mode (botto
 $env.LESS_TERMCAP_se = (ansi --escape "0m")         # end standout-mode
 $env.LESS_TERMCAP_us = (ansi --escape "00;36m")     # begin underline
 $env.LESS_TERMCAP_ue = (ansi --escape "0m")         # end underline
+
 # Finally, add session path variables
 $env.PATH = (
     $env.PATH
