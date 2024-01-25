@@ -14,8 +14,8 @@ $env.PROMPT_INDICATOR_VI_INSERT = {|| ": " }
 $env.PROMPT_INDICATOR_VI_NORMAL = {|| "> " }
 $env.PROMPT_MULTILINE_INDICATOR = {|| create_continuation_prompt }
 
-$env.TRANSIENT_PROMPT_COMMAND = {|| $"⊻ " }
-# $env.TRANSIENT_PROMPT_INDICATOR = {|| "" }
+$env.TRANSIENT_PROMPT_COMMAND = {|| create_transient_prompt_left }
+$env.TRANSIENT_PROMPT_INDICATOR = {|| create_transient_prompt_indicator }
 # $env.TRANSIENT_PROMPT_INDICATOR_VI_INSERT = {|| "" }
 # $env.TRANSIENT_PROMPT_INDICATOR_VI_NORMAL = {|| "" }
 # $env.TRANSIENT_PROMPT_MULTILINE_INDICATOR = {|| "" }
